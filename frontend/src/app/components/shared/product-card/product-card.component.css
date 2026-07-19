@@ -1,0 +1,293 @@
+/* =============================================
+   PRODUCT CARD
+   ============================================= */
+.product-card {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.28s ease;
+  will-change: transform, box-shadow;
+}
+
+/* ── Hover lift effect ── */
+.product-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+  transform: translateY(-3px);
+  border-color: rgba(34, 197, 94, 0.25);
+}
+
+/* =============================================
+   IMAGE WRAPPER — Fixed uniform height
+   ============================================= */
+.image-wrap {
+  position: relative;
+  width: 100%;
+  height: 200px;         /* uniform height for all cards */
+  overflow: hidden;
+  background: var(--color-surface);
+  flex-shrink: 0;
+}
+
+/* ── Image zoom on hover ── */
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.4s ease-out;
+  display: block;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.04);
+}
+
+/* =============================================
+   BADGES
+   ============================================= */
+.badges {
+  position: absolute;
+  top: 0.7rem;
+  left: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  z-index: 2;
+}
+
+.badge-organic {
+  background: rgba(236, 253, 245, 0.95);
+  color: var(--color-success);
+  backdrop-filter: blur(4px);
+}
+
+.badge-discount {
+  background: var(--color-danger);
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+/* Out-of-stock overlay */
+.out-of-stock-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--color-danger);
+  letter-spacing: 0.02em;
+  z-index: 3;
+}
+
+/* =============================================
+   PRODUCT BODY — Spacing & Layout
+   ============================================= */
+:host {
+  display: block;
+  height: 100%;
+}
+
+.product-body {
+  padding: 1.1rem 1.2rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+}
+
+/* Product name */
+.product-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 0.3rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  
+  /* Fixed height for consistent layout */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 2.7em; /* exactly 2 lines */
+}
+
+/* Description */
+.product-desc {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin: 0 0 0.8rem;
+  
+  /* Fixed height for consistent layout */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 3em; /* exactly 2 lines (1.5 line height) */
+  line-height: 1.5;
+}
+
+/* Meta row (Price & Rating) */
+.meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+  gap: 0.5rem;
+}
+
+/* Price column */
+.price-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.price-main {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+}
+
+.price {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.old-price {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+  line-height: 1;
+}
+
+.unit {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1;
+}
+
+/* Rating column */
+.rating-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+}
+
+.stars {
+  color: #e2e8f0;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+.stars .filled {
+  color: #f59e0b;
+}
+
+.review-count {
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+/* =============================================
+   ADD TO CART BUTTON
+   ============================================= */
+.add-btn {
+  margin-top: auto;
+  width: 100%;
+  padding: 0.62rem 1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  border: none;
+  background: var(--color-primary);
+  color: #fff;
+  transition: background 0.2s ease,
+              transform 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
+}
+
+.add-btn:not(:disabled):hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(34, 197, 94, 0.38);
+}
+
+.add-btn:not(:disabled):active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(34, 197, 94, 0.2);
+}
+
+.add-btn:disabled {
+  background: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* =============================================
+   QUANTITY SELECTOR
+   ============================================= */
+.quantity-selector {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-primary-light);
+  border: 1px solid var(--color-primary);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.15);
+}
+
+.qty-btn {
+  background: transparent;
+  color: var(--color-primary);
+  border: none;
+  font-size: 1.25rem;
+  font-weight: 700;
+  width: 40px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.qty-btn:hover {
+  background: rgba(34, 197, 94, 0.15);
+}
+
+.qty-btn:active {
+  background: rgba(34, 197, 94, 0.25);
+}
+
+.qty-val {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--color-primary-hover);
+  min-width: 30px;
+  text-align: center;
+}

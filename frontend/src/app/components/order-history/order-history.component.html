@@ -1,0 +1,25 @@
+<section class="container orders-page">
+  <h1>My Orders</h1>
+
+  @if (orders.length === 0) {
+    <div class="empty-state card">
+      <p>You haven't placed any orders yet.</p>
+      <a routerLink="/products" class="btn btn-primary">Start shopping</a>
+    </div>
+  } @else {
+    <div class="orders-list">
+      @for (order of orders; track order.id) {
+        <a [routerLink]="['/orders', order.id]" class="order-row card">
+          <div class="order-main">
+            <h3>{{ order.id }}</h3>
+            <p>{{ order.items.length }} item(s) · ₹{{ order.total }}</p>
+            <p class="order-date">Placed on {{ order.placedAt | date: 'medium' }}</p>
+          </div>
+          <span class="status-badge" [class]="'status-' + order.status.toLowerCase().replaceAll(' ', '-')">
+            {{ order.status }}
+          </span>
+        </a>
+      }
+    </div>
+  }
+</section>

@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.angular/
+.env
+uploads/
+logs/
+coverage/
+.vscode/
+.idea/
+*.log

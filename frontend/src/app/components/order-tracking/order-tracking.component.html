@@ -1,0 +1,64 @@
+<section class="container tracking-page">
+  @if (!order) {
+    <div class="empty-state card">
+      <h1>Order not found</h1>
+      <p>We couldn't find this order. It may have been placed on a different account.</p>
+      <a routerLink="/orders" class="btn btn-primary">Back to My Orders</a>
+    </div>
+  } @else {
+    <a routerLink="/orders" class="back-link">← Back to My Orders</a>
+    <h1>Order {{ order.id }}</h1>
+    <p class="placed-date">Placed on {{ order.placedAt | date: 'medium' }}</p>
+
+    <div class="tracking-layout">
+      <div class="card timeline-card">
+        <h2>Delivery Status</h2>
+
+        <div class="timeline">
+          @for (status of statusSequence; track status; let i = $index) {
+            <div class="timeline-step" [class.done]="isStepDone(status)">
+              <div class="step-marker">
+                @if (isStepDone(status)) { ✓ } @else { {{ i + 1 }} }
+              </div>
+              <div class="step-label">
+                <strong>{{ status }}</strong>
+                @if (order.statusHistory[i]) {
+                  <span class="step-time">{{ order.statusHistory[i].timestamp | date: 'short' }}</span>
+                }
+              </div>
+              @if (i < statusSequence.length - 1) {
+                <div class="step-line" [class.done]="isStepDone(statusSequence[i + 1])"></div>
+              }
+            </div>
+          }
+        </div>
+
+        @if (order.status !== 'Delivered') {
+          <button class="btn btn-outline" (click)="simulateNextStep()">
+            Simulate next update (demo)
+          </button>
+        }
+      </div>
+
+      <aside class="card details-card">
+        <h2>Order Details</h2>
+        @for (item of order.items; track item.productId) {
+          <div class="detail-row">
+            <span>{{ item.name }} × {{ item.quantity }}</span>
+            <span>₹{{ item.price * item.quantity }}</span>
+          </div>
+        }
+        <div class="detail-row total">
+          <span>Total</span>
+          <span>₹{{ order.total }}</span>
+        </div>
+
+        <h3>Delivery Address</h3>
+        <p>{{ order.address }}</p>
+
+        <h3>Payment Method</h3>
+        <p>{{ order.paymentMethod }}</p>
+      </aside>
+    </div>
+  }
+</section>

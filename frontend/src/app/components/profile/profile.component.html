@@ -1,0 +1,23 @@
+<section class="container profile-page">
+  <h1>My Profile</h1>
+
+  <div class="profile-card card">
+    <div class="profile-avatar">{{ auth.currentUser()?.name?.charAt(0) }}</div>
+    <div class="profile-info">
+      <h2>{{ auth.currentUser()?.name }}</h2>
+      <p>{{ auth.currentUser()?.email }}</p>
+    </div>
+  </div>
+
+  <div class="profile-stats">
+    <div class="stat-card card">
+      <span class="stat-number">{{ orderCount() }}</span>
+      <span class="stat-label">Orders placed</span>
+    </div>
+  </div>
+
+  <div class="profile-actions">
+    <a routerLink="/orders" class="btn btn-primary">View My Orders</a>
+    <a routerLink="/products" class="btn btn-outline">Continue Shopping</a>
+  </div>
+</section>

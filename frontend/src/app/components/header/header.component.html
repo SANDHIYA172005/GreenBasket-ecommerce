@@ -1,0 +1,58 @@
+<header class="site-header">
+  <div class="header-inner">
+
+    <!-- Brand — top-left -->
+    <a routerLink="/" class="brand">
+      <span class="brand-icon">🌿</span>
+      <span>GreenBasket</span>
+    </a>
+
+    <!-- Center nav links -->
+    <nav class="nav-links" [class.open]="menuOpen">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="menuOpen = false">Home</a>
+      <a routerLink="/about" routerLinkActive="active" (click)="menuOpen = false">About Us</a>
+      <a routerLink="/products" [queryParams]="{category: 'Fruits'}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="menuOpen = false">Fruits</a>
+      <a routerLink="/products" [queryParams]="{category: 'Vegetables'}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="menuOpen = false">Vegetables</a>
+      <a routerLink="/products" [queryParams]="{category: 'Dairy'}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="menuOpen = false">Dairy</a>
+      <a routerLink="/products" [queryParams]="{category: 'Grains'}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="menuOpen = false">Grains</a>
+      <a routerLink="/contact" routerLinkActive="active" (click)="menuOpen = false">Contact</a>
+    </nav>
+
+    <!-- Right side: cart + profile -->
+    <div class="header-actions">
+      <a routerLink="/cart" routerLinkActive="active" class="cart-link" aria-label="View cart">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cart-icon">
+          <circle cx="8" cy="21" r="1"/>
+          <circle cx="19" cy="21" r="1"/>
+          <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>
+        </svg>
+        @if (cart.totalItems() > 0) {
+          <span class="cart-badge">{{ cart.totalItems() }}</span>
+        }
+      </a>
+
+      @if (auth.isLoggedIn()) {
+        <div class="profile-menu">
+          <button class="profile-trigger" (click)="toggleProfile()">
+            <span class="profile-avatar">{{ auth.currentUser()?.name?.charAt(0) }}</span>
+            <span class="profile-name">{{ auth.currentUser()?.name }}</span>
+            <span class="chevron">▾</span>
+          </button>
+
+          @if (profileOpen) {
+            <div class="profile-dropdown">
+              <a routerLink="/profile" (click)="profileOpen = false">Profile</a>
+              <a routerLink="/orders" (click)="profileOpen = false">Orders</a>
+              <button class="logout-item" (click)="logout()">Logout</button>
+            </div>
+          }
+        </div>
+      } @else {
+        <a routerLink="/login" class="btn btn-outline">Log in</a>
+        <a routerLink="/register" class="btn btn-primary">Sign up</a>
+      }
+
+      <button class="menu-toggle" (click)="toggleMenu()" aria-label="Toggle menu">☰</button>
+    </div>
+  </div>
+</header>

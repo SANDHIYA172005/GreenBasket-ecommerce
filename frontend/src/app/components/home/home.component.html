@@ -1,0 +1,152 @@
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="hero-bg">
+    <img
+      src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=1600&h=900&fit=crop"
+      alt="Fresh organic vegetables and fruits"
+      class="hero-image"
+    />
+    <div class="hero-overlay"></div>
+  </div>
+
+  <div class="container hero-inner">
+    <div class="hero-copy fade-slide-in">
+      <span class="eyebrow">🌿 100% Certified Organic</span>
+      <h1>Groceries grown honestly,<br />delivered fresh.</h1>
+      <h3 class="hero-subtitle">Farm to table, the right way.</h3>
+      <p>Shop fruits, vegetables, dairy and grains sourced directly from
+        organic farms — no pesticides, no shortcuts.</p>
+        
+      <div class="hero-trust-badges">
+        <span>🌱 100% Organic</span>
+        <span>🚚 Free Delivery Above ₹499</span>
+        <span>⭐ Fresh From Farms</span>
+      </div>
+
+      <div class="hero-ctas">
+        <a routerLink="/products" class="btn btn-primary btn-lg btn-glow">Shop Now</a>
+        <a routerLink="/products" [queryParams]="{sort: 'discount'}" class="btn btn-outline-light btn-lg">View Offers</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROMO BANNER ===================== -->
+<section class="promo-banner">
+  <div class="container promo-inner">
+    <span class="promo-text"><strong>Fresh Organic Groceries</strong> — Up to 25% OFF on your first order</span>
+    <span class="promo-divider">•</span>
+    <span class="promo-text">Free Delivery above ₹499</span>
+    <a routerLink="/products" class="btn btn-primary promo-btn">Shop Now</a>
+  </div>
+</section>
+
+<!-- ===================== CATEGORIES ===================== -->
+<section class="container categories-section fade-in-up">
+  <h2>Shop by Category</h2>
+  <div class="category-grid">
+    @for (cat of categories; track cat.name) {
+      <a class="category-card card fade-in-up" [routerLink]="['/products']" [queryParams]="{category: cat.name}">
+        <div class="category-image-wrap">
+          <img [src]="cat.image" [alt]="cat.name" class="category-image" />
+        </div>
+        <h3>{{ cat.name }}</h3>
+        <p>{{ cat.blurb }}</p>
+      </a>
+    }
+  </div>
+</section>
+
+<!-- ===================== FEATURED PRODUCTS ===================== -->
+<section class="container product-section fade-in-up">
+  <div class="section-heading">
+    <h2>Featured Products</h2>
+    <a routerLink="/products" class="see-all">See all →</a>
+  </div>
+  <div class="product-row">
+    @for (product of featuredProducts; track product.id) {
+      <app-product-card [product]="product"></app-product-card>
+    }
+  </div>
+</section>
+
+<!-- ===================== BEST SELLERS ===================== -->
+<section class="container product-section fade-in-up">
+  <div class="section-heading">
+    <h2>Best Sellers</h2>
+    <a routerLink="/products" class="see-all">See all →</a>
+  </div>
+  <div class="product-row">
+    @for (product of bestSellerProducts; track product.id) {
+      <app-product-card [product]="product"></app-product-card>
+    }
+  </div>
+</section>
+
+<!-- ===================== WHY CHOOSE US ===================== -->
+<section class="why-choose-section">
+  <div class="container">
+    <h2 class="center-heading fade-in-up">Why Choose GreenBasket?</h2>
+    <div class="why-grid">
+      @for (item of whyChooseUs; track item.title) {
+        <div class="why-card fade-in-up">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TESTIMONIALS ===================== -->
+<section class="container testimonials-section">
+  <h2 class="center-heading fade-in-up">What Our Customers Say</h2>
+  <div class="testimonial-grid">
+    @for (t of testimonials; track t.name) {
+      <div class="testimonial-card card fade-in-up">
+        <div class="testimonial-stars">
+          @for (i of [1,2,3,4,5]; track i) {
+            <span [class.filled]="i <= t.rating">★</span>
+          }
+        </div>
+        <p class="testimonial-quote">"{{ t.quote }}"</p>
+        <div class="testimonial-author">
+          @if (t.image) {
+            <img class="avatar avatar-img" [src]="t.image" [alt]="t.name" />
+          } @else {
+            <span class="avatar">{{ t.name.charAt(0) }}</span>
+          }
+          <div>
+            <strong>{{ t.name }}</strong>
+            <span class="location">{{ t.location }}</span>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- ===================== NEWSLETTER ===================== -->
+<section class="newsletter-section">
+  <div class="container newsletter-inner fade-in-up">
+    <div>
+      <h2>Join the GreenBasket family</h2>
+      <p>Get 10% off your first order plus fresh recipe ideas, straight to your inbox.</p>
+    </div>
+
+    @if (newsletterSubmitted) {
+      <div class="newsletter-success">✓ Subscribed! Check your inbox for your discount code.</div>
+    } @else {
+      <form class="newsletter-form" (ngSubmit)="subscribeNewsletter()">
+        <input
+          type="email"
+          [(ngModel)]="newsletterEmail"
+          name="newsletterEmail"
+          placeholder="you@example.com"
+          required
+        />
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+    }
+  </div>
+</section>

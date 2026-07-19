@@ -1,0 +1,8 @@
+/* The header is now position:fixed, so it's out of normal document flow —
+   push all page content down by exactly the header's height to avoid it
+   hiding underneath the navbar. */
+main {
+  display: block;
+  padding-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height) - 200px);
+}

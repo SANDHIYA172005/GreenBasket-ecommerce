@@ -1,0 +1,87 @@
+<section class="container checkout-page">
+  <h1>Checkout</h1>
+
+  @if (placedOrder) {
+    <div class="success-card card">
+      <div class="success-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="success-checkmark-icon">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      </div>
+      <h2>Order placed successfully!</h2>
+      <p>Your order <strong>{{ placedOrder.id }}</strong> has been confirmed and is being prepared.</p>
+      <div class="success-actions">
+        <button class="btn btn-primary" (click)="goToTracking()">Track Order</button>
+        <a routerLink="/products" class="btn btn-outline">Continue Shopping</a>
+      </div>
+    </div>
+  } @else {
+    <div class="checkout-layout">
+      <form class="card checkout-form" (ngSubmit)="placeOrder()">
+        <h2>Delivery Details</h2>
+
+        @if (errorMessage) {
+          <div class="alert">{{ errorMessage }}</div>
+        }
+
+        <div class="field">
+          <label for="fullName">Full name</label>
+          <input id="fullName" type="text" [(ngModel)]="fullName" name="fullName" required />
+        </div>
+        <div class="field">
+          <label for="address">Street address</label>
+          <input id="address" type="text" [(ngModel)]="address" name="address" required placeholder="House no, street, area" />
+        </div>
+        <div class="two-col">
+          <div class="field">
+            <label for="city">City</label>
+            <input id="city" type="text" [(ngModel)]="city" name="city" required />
+          </div>
+          <div class="field">
+            <label for="pincode">Pincode</label>
+            <input id="pincode" type="text" [(ngModel)]="pincode" name="pincode" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input id="phone" type="tel" [(ngModel)]="phone" name="phone" required placeholder="+91 XXXXX XXXXX" />
+        </div>
+
+        <div class="field">
+          <label>Payment method</label>
+          <div class="payment-options">
+            <label class="radio-pill" [class.active]="paymentMethod === 'COD'">
+              <input type="radio" name="paymentMethod" value="COD" [(ngModel)]="paymentMethod" />
+              Cash on Delivery
+            </label>
+            <label class="radio-pill" [class.active]="paymentMethod === 'Card'">
+              <input type="radio" name="paymentMethod" value="Card" [(ngModel)]="paymentMethod" />
+              Card
+            </label>
+            <label class="radio-pill" [class.active]="paymentMethod === 'UPI'">
+              <input type="radio" name="paymentMethod" value="UPI" [(ngModel)]="paymentMethod" />
+              UPI
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Place Order</button>
+      </form>
+
+      <aside class="card order-review">
+        <h2>Order Review</h2>
+        @for (item of cart.items(); track item.product.id) {
+          <div class="review-row">
+            <span>{{ item.product.name }} × {{ item.quantity }}</span>
+            <span>₹{{ item.product.price * item.quantity }}</span>
+          </div>
+        }
+        <div class="review-row total">
+          <span>Total</span>
+          <span>₹{{ cart.totalPrice() }}</span>
+        </div>
+      </aside>
+    </div>
+  }
+</section>

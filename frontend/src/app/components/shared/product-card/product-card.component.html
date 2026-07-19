@@ -1,0 +1,68 @@
+<div class="product-card">
+  <div class="image-wrap">
+    <img
+      class="product-image"
+      [src]="product.image"
+      [alt]="product.name"
+      loading="lazy"
+      (error)="onImageError($event)"
+    />
+
+    <div class="badges">
+      @if (product.organic) {
+        <span class="badge badge-organic">Organic</span>
+      }
+      @if (discountPercent > 0) {
+        <span class="badge badge-discount">-{{ discountPercent }}%</span>
+      }
+    </div>
+
+    @if (!product.inStock) {
+      <div class="out-of-stock-overlay">Out of Stock</div>
+    }
+  </div>
+
+  <div class="product-body">
+    <h3 class="product-name" [title]="product.name">{{ product.name }}</h3>
+    <p class="product-desc" [title]="product.description">{{ product.description }}</p>
+
+    <div class="meta-row">
+      <div class="price-col">
+        <div class="price-main">
+          <span class="price">₹{{ product.price }}</span>
+          @if (product.oldPrice) {
+            <span class="old-price">₹{{ product.oldPrice }}</span>
+          }
+        </div>
+        <span class="unit">/ {{ product.unit }}</span>
+      </div>
+
+      <div class="rating-col">
+        <div class="stars">
+          @for (filled of starStates; track $index) {
+            <span [class.filled]="filled">★</span>
+          }
+        </div>
+        @if (product.reviewCount) {
+          <span class="review-count">({{ product.reviewCount }})</span>
+        }
+      </div>
+    </div>
+
+    @if (quantity() === 0) {
+      <button
+        class="btn btn-primary btn-block add-btn"
+        [disabled]="!product.inStock"
+        (click)="onAddToCart()"
+      >
+        {{ product.inStock ? 'Add to Cart' : 'Out of Stock' }}
+      </button>
+    } @else {
+      <div class="quantity-selector">
+        <button class="qty-btn" (click)="decrement()">−</button>
+        <span class="qty-val">{{ quantity() }}</span>
+        <button class="qty-btn" (click)="increment()">+</button>
+      </div>
+    }
+  </div>
+</div>
