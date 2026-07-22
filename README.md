@@ -15,14 +15,6 @@ GreenBasket is a full-stack e-commerce application designed to provide users wit
 - **Order Management**: Place orders with various payment methods (COD, Card, UPI) and track order history and status.
 - **Responsive Design**: A sleek, modern UI built with CSS Grid/Flexbox that works flawlessly on desktop and mobile.
 
-## 🎥 Demo Video
-
-Here is a quick walkthrough of the application:
-<video width="100%" controls>
-  <source src="./demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
 ## 💻 Tech Stack
 
 ### Frontend
