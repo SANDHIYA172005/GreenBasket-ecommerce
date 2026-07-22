@@ -2,6 +2,11 @@
 
 GreenBasket is a full-stack e-commerce application designed to provide users with a seamless, intuitive, and secure platform to purchase organic groceries. Built with modern web technologies, it features a responsive user interface, JWT-based authentication, and a robust RESTful API.
 
+## 🔗 Live Links
+- **Live Demo**: [https://green-basket-ecommerce.vercel.app/](https://green-basket-ecommerce.vercel.app/)
+- **Backend API**: [https://greenbasket-ecommerce.onrender.com/](https://greenbasket-ecommerce.onrender.com/)
+- **GitHub Repository**: [https://github.com/SANDHIYA172005/GreenBasket-ecommerce](https://github.com/SANDHIYA172005/GreenBasket-ecommerce)
+
 ## 🚀 Features
 
 - **User Authentication**: Secure signup and login using JWT (JSON Web Tokens) and bcrypt password hashing.
